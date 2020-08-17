@@ -8,25 +8,25 @@
   (: xpub-check-path (-> String String String Any))
   (define (xpub-check-path root path-str expect-child)
     (check-equal?
-     (serialize-xpub
+     (xpub->string
       (xpub-derive-path
-       (parse-xpub root)
-       (parse-path-string path-str)))
+       (string->xpub root)
+       (string->path path-str)))
      expect-child))
 
   (: xpriv-check-path (-> String String String Any))
   (define (xpriv-check-path root path-str expect-child)
     (check-equal?
-     (serialize-xpriv
+     (xpriv->string
       (xpriv-derive-path
-       (parse-xpriv root)
-       (parse-path-string path-str)))
+       (string->xpriv root)
+       (string->path path-str)))
      expect-child))
 
   (: check-N (-> String String Any))
   (define (check-N xpriv expect-xpub)
     (check-equal?
-     (serialize-xpub (N (parse-xpriv xpriv)))
+     (xpub->string (N (string->xpriv xpriv)))
      expect-xpub))
 
   (test-case
@@ -65,7 +65,7 @@
    (define test5-prv "xprvA2nrNbFZABcdryreWet9Ea4LvTJcGsqrMzxHx98MMrotbir7yrKCEXw7nadnHM8Dq38EGfSh6dqA9QWTyefMLEcBYJUuekgW4BYPJcr9E7j")
    (xpub-check-path root-xpub "m/0" test1-pub)
    (check-equal?
-    (serialize-xpub (N (xpriv-derive-path (parse-xpriv root-xpriv) (parse-path-string "m/0"))))
+    (xpub->string (N (xpriv-derive-path (string->xpriv root-xpriv) (string->path "m/0"))))
     test1-pub)
    (xpriv-check-path root-xpriv "m/0/2147483647'" test2-prv)
    (xpriv-check-path root-xpriv "m/0/2147483647'/1" test3-prv)
@@ -84,5 +84,6 @@
    (define child-xpriv "xprv9uPDJpEQgRQfDcW7BkF7eTya6RPxXeJCqCJGHuCJ4GiRVLzkTXBAJMu2qaMWPrS7AANYqdq6vcBcBUdJCVVFceUvJFjaPdGZ2y9WACViL4L")
    (xpriv-check-path root-xpriv "m/0'" child-xpriv)
    (check-equal?
-    (serialize-xpub (N (xpriv-derive-path (parse-xpriv root-xpriv) (parse-path-string "m/0'"))))
+    (xpub->string (N (xpriv-derive-path (string->xpriv root-xpriv) (string->path "m/0'"))))
     child-xpub)))
+

@@ -1,3 +1,3 @@
 #lang setup/infotab
 
-(define scribblings '(("ecc.scrbl" ())))
+(define scribblings '(("bip32.scrbl" ())))

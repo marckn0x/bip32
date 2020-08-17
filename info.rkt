@@ -6,7 +6,7 @@
                "sha"
                "crypto"
                "base58"
-               "ecc"))
+               "ec"))
 (define build-deps '("racket-doc"
                      "rackunit-lib"
                      "scribble-lib"))
